@@ -1,7 +1,7 @@
 // /assets/js/sheet-quality-storage.js
-import { initAutoResizeAll, updatePageFrameHeight } from "/assets/js/utils.js";
-import { exportSheetJson, importSheetJson, resetSheet } from "/assets/js/sheet-quality-json.js";
-import { PQI } from "/assets/js/common/pqi-api.js";
+import { initAutoResizeAll, updatePageFrameHeight } from "./utils.js";
+import { exportSheetJson, importSheetJson, resetSheet } from "./sheet-quality-json.js";
+import { PQI } from "./common/pqi-api.js";
 
 // 필요하면 여기만 바꿔서 엔드포인트 맞추면 됨
 const BASE_HOST = "127.0.0.1:5502";

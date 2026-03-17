@@ -1,5 +1,5 @@
 // /assets/js/pqi-api.js
-import { apiGet, apiPost, loadJsonFile } from "/assets/js/common/api.js";
+import { apiGet, apiPost, loadJsonFile } from "./api.js";
 
 console.log("PQI.JS Load On!");
 

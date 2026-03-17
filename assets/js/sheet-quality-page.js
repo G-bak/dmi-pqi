@@ -1,8 +1,8 @@
 // sheet-quality.js
-import { initAutoResizeAll, setNowToKoreanDateTimeTextarea, updatePageFrameHeight } from "/assets/js/utils.js";
-import { initPhotoDropPairs, initClipDropzones } from "/assets/js/image-drop.js";
-import { initSheetZoomControls } from "/assets/js/sheet-zoom.js"; 
-import "/assets/js/sheet-quality-json.js";
+import { initAutoResizeAll, setNowToKoreanDateTimeTextarea, updatePageFrameHeight } from "./utils.js";
+import { initPhotoDropPairs, initClipDropzones } from "./image-drop.js";
+import { initSheetZoomControls } from "./sheet-zoom.js"; 
+import "./sheet-quality-json.js";
 // import { initStorageControls } from "/assets/js/sheet-quality-storage.js";
 
 document.addEventListener("DOMContentLoaded", async () => {

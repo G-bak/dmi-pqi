@@ -1,7 +1,7 @@
 // /assets/js/snapshot.js
-import { getParamsFromUrl, getYearMonth, makeTimestamp, updatePageFrameHeight, initAutoResizeAll } from "/assets/js/utils.js";
-import { importSheetJson, exportSheetJson } from "/assets/js/sheet-quality-json.js";
-import { PQI } from "/assets/js/common/pqi-api.js";
+import { getParamsFromUrl, getYearMonth, makeTimestamp, updatePageFrameHeight, initAutoResizeAll } from "./utils.js";
+import { importSheetJson, exportSheetJson } from "./sheet-quality-json.js";
+import { PQI } from "./common/pqi-api.js";
 
 // 서버에서 불러오기
 async function loadFromServer() {
