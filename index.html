@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>공정품질 문제 개선안</title>
+  <link rel="icon" type="image/x-icon" href="./assets/img/favicons/favicon.png">
+  <link rel="stylesheet" href="./assets/css/style.css" />
+	<link rel="stylesheet" href="./assets/css/classic-bootstrap.css">
+  <link rel="stylesheet" href="./assets/css/media-query.css" media="screen" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">	
+</head>
+<body>
+  <div class="zoom-controls">
+    <button type="button" id="zoomOut">-</button>
+    <span id="zoomLabel">100%</span>
+    <button type="button" id="zoomIn">+</button>
+  </div>
+
+	<!-- 서버 전송 버튼 -->
+	<button id="btnSaveJson" class="back-fab" title="문서 저장" aria-label="서버 전송" style="background-color: #1d9b61;">
+		<i class="fa-solid fa-cloud-upload-alt" style="color:#fff; font-size:20px;"></i>
+	</button>
+
+	<!-- 스냅샷 불러오기 버튼 -->
+	<button id="btnLoadSnapshot" class="back-fab2" title="스냅샷 불러오기" aria-label="스냅샷 불러오기" style="right: 90px; background-color: #1E7FD8;">
+		<i class="fa-solid fa-cloud-download-alt" style="color:#fff; font-size:20px;"></i>
+	</button>
+
+  <div class="sheet a4 landscape">
+    <div class="page-container" data-side-label="A4 · 297×210mm · Landscape">
+      <div class="page-frame">
+        <!-- 헤더 -->
+        <header class="hdr">
+          <div class="row">
+            <div class="h1">■</div>&nbsp;&nbsp;&nbsp;
+            <textarea rows="1" placeholder="제목을 입력해주세요" spellcheck="false"
+              data-field="title"></textarea>
+          </div>
+        </header>
+
+        <!-- 본문 2단 -->
+        <main class="cols">
+          <!-- 좌측 -->
+          <section class="col left">
+            <h2 class="cap">문 제 점</h2>
+            <div class="box problem">
+              <div class="row">
+                <div class="s-lab">불량현상 : </div>
+                <textarea rows="1" placeholder="어떤 불량이 발생했는지 작성하세요" spellcheck="false"
+                  data-field="problem.phenomenon"></textarea>
+              </div>
+              <div class="meta">
+                <div class="row">
+                  <b class="s-lab">· 발생일 : </b>
+                  <textarea id="occurDate" rows="1" placeholder="2025년 7월 05일(토) 14시 25분"
+                    spellcheck="false"
+                    data-field="problem.occurDate"></textarea>
+                </div>
+                <div class="row">
+                  <b class="s-lab">· 품명 : </b>
+                  <textarea rows="1" placeholder="품명을 작성하세요" spellcheck="false"
+                    data-field="problem.productName"></textarea>
+                </div>
+                <div class="row">
+                  <b class="s-lab">· 발생장소 : </b>
+                  <textarea rows="1" placeholder="발생장소를 작성하세요" spellcheck="false"
+                    data-field="problem.location"></textarea>
+                </div>
+                <div class="row">
+                  <b class="s-lab">· 수량 : </b>
+                  <textarea rows="1" placeholder="수량을 작성하세요" spellcheck="false"
+                    data-field="problem.quantity"></textarea>
+                </div>
+              </div>
+
+              <div class="photo-pair">
+                <figure class="good">
+                  <figcaption class="title">
+                    양품
+                    <button type="button" class="btn-zoom">확대보기</button>
+                  </figcaption>
+                  <div class="dropzone"
+                    data-field="problem.photos.good"
+                    data-type="image">
+                    <span class="dz-text">이미지를 끌어다 놓거나 클릭</span>
+                    <input type="file" accept="image/*" class="dz-input" hidden>
+                  </div>
+                </figure>
+
+                <figure class="bad">
+                  <figcaption class="title">
+                    불량
+                    <button type="button" class="btn-zoom">확대보기</button>
+                  </figcaption>
+                  <div class="dropzone"
+                    data-field="problem.photos.bad"
+                    data-type="image">
+                    <span class="dz-text">이미지를 끌어다 놓거나 클릭</span>
+                    <input type="file" accept="image/*" class="dz-input" hidden>
+                  </div>
+                </figure>
+              </div>
+            </div>
+
+            <h2 class="cap mt">원인 ( 설계 · 부품 · 조립 · 기타 )</h2>
+            <div class="box cause">
+              <textarea rows="1"
+                placeholder="불량이 발생하게 된 원인을 구체적으로 작성하세요. (예: 누락된 공정, 관리 부재, 부적합한 설계/부품/조립 조건, 작업자 인식 미흡 등)"
+                spellcheck="false"
+                data-field="cause.description"></textarea>
+
+              <div class="thumbs thumbs-video" data-group="cause.clips">
+                <div class="dropzone-box">
+                  <div class="dropzone clip"
+                    data-field="cause.clips"
+                    data-type="media">
+                    <span class="dz-text">이미지 또는 동영상을 끌어다 놓거나 클릭</span>
+                    <input type="file" accept="image/*,video/*" class="dz-input" hidden>
+                  </div>
+                  <button type="button" class="btn-zoom">확대보기</button>
+                </div>
+                <div class="dropzone-box">
+                  <div class="dropzone clip"
+                    data-field="cause.clips"
+                    data-type="media">
+                    <span class="dz-text">이미지 또는 동영상을 끌어다 놓거나 클릭</span>
+                    <input type="file" accept="image/*,video/*" class="dz-input" hidden>
+                  </div>
+                  <button type="button" class="btn-zoom">확대보기</button>
+                </div>
+                <div class="dropzone-box">
+                  <div class="dropzone clip"
+                    data-field="cause.clips"
+                    data-type="media">
+                    <span class="dz-text">이미지 또는 동영상을 끌어다 놓거나 클릭</span>
+                    <input type="file" accept="image/*,video/*" class="dz-input" hidden>
+                  </div>
+                  <button type="button" class="btn-zoom">확대보기</button>
+                </div>
+                <div class="dropzone-box">
+                  <div class="dropzone clip"
+                    data-field="cause.clips"
+                    data-type="media">
+                    <span class="dz-text">이미지 또는 동영상을 끌어다 놓거나 클릭</span>
+                    <input type="file" accept="image/*,video/*" class="dz-input" hidden>
+                  </div>
+                  <button type="button" class="btn-zoom">확대보기</button>
+                </div>
+                <div class="dropzone-box">
+                  <div class="dropzone clip"
+                    data-field="cause.clips"
+                    data-type="media">
+                    <span class="dz-text">이미지 또는 동영상을 끌어다 놓거나 클릭</span>
+                    <input type="file" accept="image/*,video/*" class="dz-input" hidden>
+                  </div>
+                  <button type="button" class="btn-zoom">확대보기</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 우측 -->
+          <section class="col right">
+            <h2 class="cap">대책 및 제안</h2>
+            <div class="box actions">
+              <div class="blk">
+                <div class="s-lab">임시 대책</div>
+                <textarea rows="1"
+                  placeholder="현장 적용이 가능한 단기 조치를 구체적으로 작성하세요. (예: 추가 검사, 작업 조건 보정, 관리 포인트 지정, 임시 치공/보조구 적용 등)"
+                  spellcheck="false"
+                  data-field="actions.temporary"></textarea>
+              </div>
+              <div class="blk">
+                <div class="s-lab">근본 대책</div>
+                <textarea rows="1"
+                  placeholder="재발 방지를 위해 시스템·설계·공정 측면에서 근본적으로 개선할 방안을 작성하세요. (예: 설계 변경, 공정 FMEA 반영, 자동화/센서화, 교육·표준 개정 등)"
+                  spellcheck="false"
+                  data-field="actions.fundamental"></textarea>
+              </div>
+            </div>
+
+            <div class="box improve mt" style="border-style: none !important; padding: 0 !important;">
+              <div style="display: flex;">
+                <h2 class="cap" style="border-right-style: none !important;">개선전</h2>
+                <h2 class="cap">개선후</h2>
+              </div>
+              <div class="box pair" style="gap: 3mm !important;">
+                <div class="dropzone-box">
+                  <div class="dropzone clip"
+                    data-field="improve.before"
+                    data-type="media">
+                    <span class="dz-text">이미지 또는 동영상을 끌어다 놓거나 클릭</span>
+                    <input type="file" accept="image/*,video/*" class="dz-input" hidden>
+                  </div>
+                  <button type="button" class="btn-zoom">확대보기</button>
+                </div>
+                <div class="dropzone-box">
+                  <div class="dropzone clip"
+                    data-field="improve.after"
+                    data-type="media">
+                    <span class="dz-text">이미지 또는 동영상을 끌어다 놓거나 클릭</span>
+                    <input type="file" accept="image/*,video/*" class="dz-input" hidden>
+                  </div>
+                  <button type="button" class="btn-zoom">확대보기</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="sign mt">
+              <table>
+                <tr>
+                  <td class="th">담당부서</td>
+                  <td>
+                    <textarea rows="1" placeholder="부서 또는 팀" spellcheck="false"
+                      data-field="sign.department"></textarea>
+                  </td>
+                  <td class="th">담당자</td>
+                  <td>
+                    <textarea rows="1" placeholder="담당자" spellcheck="false"
+                      data-field="sign.person"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="th">책임자</td>
+                  <td>
+                    <textarea rows="1" placeholder="책임자" spellcheck="false"
+                      data-field="sign.leader"></textarea>
+                  </td>
+                  <td class="th">완료일</td>
+                  <td>
+                    <textarea rows="1" placeholder="완료일" spellcheck="false"
+                      data-field="sign.completeDate"></textarea>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </div>
+
+	<!-- Toast Container (오른쪽 아래 고정) -->
+	<div id="toastContainer" class="toast-container bottom-0 end-0" style="z-index: 20000;"></div>
+
+	<script src="./assets/js/common/toast.js"></script>
+  <script type="module" src="./assets/js/sheet-quality-page.js"></script>
+  <script type="module" src="./assets/js/snapshot.js"></script>  
+</body>
+</html>

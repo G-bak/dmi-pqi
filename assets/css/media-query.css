@@ -1,0 +1,49 @@
+/* ============================
+   모바일 전용 (예: 297/210 비율이 깨지면)
+   - 비율/그림자/아웃라인 풀기
+   - 라벨 삭제
+   - flex-direction: column
+   - 너비 100%
+   ============================ */
+@media (max-aspect-ratio: 297/210) {
+  body { align-items: flex-start; }
+
+  .sheet {
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+    box-shadow: none;
+    outline: none;
+  }
+  .page-container::before, .page-container::after { display: none; }
+  .sheet.a4.landscape {
+    flex-direction: column;
+    width: 100%;
+    height: auto;       /* 고정 높이 해제 */
+    aspect-ratio: auto; /* 비율 강제 해제 */
+    padding: 1rem;
+    max-height: none;
+  }
+
+  .page-container { max-height: none !important; }
+  .page-frame { overflow-y: auto; }
+  .cols { display: flex; flex-direction: column; }
+
+  .zoom-controls { display: none; }
+
+  .col.right { margin-top:3.5mm !important }
+  .back-fab { left: auto; right: 18px; top: auto; bottom: 18px; }
+  
+  .toast-container { bottom: auto; top: 0; }
+}
+
+@media (max-width: 480px) {
+	.problem .meta, .photo-pair{ display: flex; flex-direction: column; }  
+
+  .dz-text { font-size: var(--h3); }
+
+  .thumbs { display: flex; flex-direction: column; gap: 3mm; }
+  .thumbs.thumbs-video .dropzone-box { gap: 2mm; }
+  .thumbs.thumbs-video .clip { height: 41.3mm; }    
+  .dropzone-box .btn-zoom { font-size: var(--txt); padding: 4px 8px; }
+}

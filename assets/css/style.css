@@ -1,0 +1,466 @@
+:root{
+  /* A4 mm 고정 (가로) */
+  --a4-w: 297mm;
+  --a4-h: 210mm;
+  --sheet-zoom: 1;  /* 1 = 100% */
+    
+  --pad: 8mm;
+  --grid-gap: 4mm;
+
+  --ink:#111; --muted:#666;
+  --line:#222; --line-soft:#cfcfcf;
+  --photo:#bcbcbc;
+
+  --h1: 7mm; --h2: 4.6mm; --h3: 4.3mm; --txt: 3.9mm; --s-txt: 3.6mm;
+
+  /* A4 내부 16:9를 쓰고 싶으면 .page-frame.use-16x9 적용 */
+  --canvas-brd:#bdbdbd;
+}
+
+*{box-sizing:border-box;font-family:"Pretendard","Noto Sans KR",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+html,body{height:100%}
+body{
+  display: flex;
+  align-items: center;
+  margin:0; background: #eef1f5; color:var(--ink);
+  font-family:"Pretendard","Noto Sans KR",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  font-size:var(--txt);
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  overflow-x: hidden;
+}
+
+input, textarea {outline: none; border-style: none; width: 100%; padding: 0;resize: none;}
+
+.zoom-controls {
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 12px;
+  z-index: 1000;
+  line-height: 1;
+}
+
+.zoom-controls button {
+  border: none;
+  background: rgba(255,255,255,0.15);
+  color: inherit;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* 돌아가기 버튼 (강조형) */
+.back-fab {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgb(85 85 85 / 90%);
+  color: #fff;                       /* 흰색 아이콘 */
+  border: 2px solid transparent;
+  border-color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  z-index: 3000;
+}
+
+.back-fab:hover {
+  transform: scale(1.05);
+  color: #fff;
+}
+
+/* 돌아가기 버튼 (강조형) */
+.back-fab2 {
+  position: fixed;
+  top: 73px;
+  left: 18px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgb(85 85 85 / 90%);
+  color: #fff;                       /* 흰색 아이콘 */
+  border: 2px solid transparent;
+  border-color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  z-index: 3000;
+}
+
+.back-fab2:hover {
+  transform: scale(1.05);
+  color: #fff;
+}
+
+.back-fab2 { display: none; }
+
+/* JSON 파일 저장 / 불러오기 UI */
+.sheet-controls {
+  width: 60%;
+  position: absolute;
+  top: 12px;                  /* 상단 여백 */
+  left: 50%;                  /* 가운데 기준 */
+  transform: translateX(-50%);/* 정확히 가운데 정렬 */
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 4px 12px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.6);
+
+  color: #fff;
+  font-size: 12px;
+  z-index: 1000;
+  line-height: 1;
+}
+
+/* 파일명 라벨 */
+.sheet-controls label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+
+/* 파일명 인풋 */
+#jsonFilename {
+  width: 300px;
+  padding: 3px 6px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-size: 10.5pt;
+}
+
+/* 버튼 */
+.sheet-controls button {
+  padding: 4px 8px;
+  font-size: 10.5pt;
+  border-radius: 4px;
+  border: 1px solid #777;
+  background: #f4f4f4;
+  cursor: pointer;
+}
+.sheet-controls button:hover {
+  background: #e6e6e6;
+}
+
+/* 상태 메시지 */
+#saveStatus {
+  margin-left: 4px;
+  font-size: 10.2pt;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* 상태 색상 (JS에서 text만 바꾸면 스타일 유지) */
+#saveStatus.success {
+  color: #007744;
+}
+#saveStatus.error {
+  color: #d30000;
+  text-decoration: underline;
+}
+
+/* 종이(시트) 자체를 더 도드라지게: 위치 기준, 그림자 */
+.sheet{
+  position: relative;
+  background: #fff;
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.18),    /* 메인 그림자 */
+    0 2px 6px rgba(0,0,0,.10);      /* 보조 그림자 */
+  outline: 0.25mm solid #d9d9d9;    /* 종이 테두리 느낌 유지 */
+  transform: scale(var(--sheet-zoom));
+  transform-origin: center center;   /* ✅ 확대/축소 기준점: 위쪽 가운데 */
+}
+
+.sheet.a4.landscape{
+  display: flex;
+  align-items: center;
+  width:var(--a4-w); 
+  height:var(--a4-h);
+  margin :auto auto;
+  background:#fff;
+  padding: 1rem 2rem;
+}
+
+.page-container { overflow: hidden; }
+
+/* 오른쪽 세로 라벨 (스크린에서만) */
+.page-container::after{
+  content: attr(data-side-label);   /* HTML에서 넘긴 텍스트 사용 */
+  position: absolute;
+  top: 50%;
+  right: -20mm;                     /* 종이 바깥으로 살짝 */
+  transform: rotate(90deg) translateY(-50%);
+  transform-origin: right top;
+
+  background: #111;
+  color: #fff;
+  font-size: 11px;                  /* 필요하면 mm로: 3.2mm */
+  letter-spacing: .3px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.25);
+  white-space: nowrap;
+}
+
+/* 라벨 고정선(작은 브래킷 느낌) */
+.page-container::before{
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -6mm;
+  width: 10mm;
+  height: 0;
+  border-top: 1px dashed #bbb;      /* 종이-라벨 연결선 */
+  transform: translateY(-50%);
+}
+
+/* A4 전체를 쓰는 프레임(기본) */
+.page-frame{ width:100%; display:grid; grid-template-rows:auto 1fr; gap:3mm;}
+
+/* 헤더 */
+.hdr{display:flex; align-items:flex-start; gap:4mm}
+.hdr .row{width: 100%;display:flex; align-items:flex-start;}
+.hdr .s-lab{font-weight:700; margin-right: 3px; white-space: nowrap; font-size:var(--txt); line-height: 1.3;}
+.hdr .dot{width:4mm;height:4mm;background:#000;border-radius:0.6mm}
+.hdr .h1{margin:0;font-size:var(--h2);font-weight:700;letter-spacing:-0.15mm;line-height: 2.3;}
+.hdr textarea{margin:0;font-size:var(--h1);font-weight:700;letter-spacing:-0.15mm}
+
+/* 본문 2단 */
+.cols{
+  display:grid; grid-template-columns: 1.12fr 0.88fr; column-gap:var(--grid-gap);
+}
+
+/* 공통 */
+.cap{
+  display:inline-block; margin:0; padding:0.6mm 2.4mm; text-align: center;
+  font-size:var(--h2); font-weight:700; border:0.35mm solid var(--line);
+  background:#fff8e9; width: 100%;
+}
+.mt{margin-top:3.5mm !important}
+.box{border:0.35mm solid var(--line); border-top: none !important; padding:3mm; overflow: auto;}
+
+/* 문제점 */
+.problem .row{display:flex; align-items:flex-start;}
+.problem .lab{font-weight:700; margin-right: 3px; white-space: nowrap; font-size:var(--h3)}
+.problem .s-lab{font-weight:700; margin-right: 3px; white-space: nowrap; font-size:var(--txt); line-height: 1.3;}
+.problem .val{width: 100%;font-size:var(--h3); color: #111;}
+.problem .meta{
+  display:grid; grid-template-columns:1fr 1fr; gap:1mm 2mm; margin-top:1mm; color:var(--muted)
+}
+.problem .meta b{color:#222}
+
+/* 양품/불량 이미지 */
+.photo-pair{
+  display:grid; grid-template-columns:1fr 1fr; gap:3mm; margin-top:3mm; margin-bottom: 3.5px;
+}
+.photo-pair figure{margin:0; border:0.3mm solid var(--line-soft); padding:2mm; position:relative; height: 200px;}
+.photo-pair figcaption{font-weight:700; margin-bottom:1.5mm}
+.photo-pair img{width:100%; height:42.5mm; object-fit:contain;}
+.speccard{
+  position:absolute; right:2mm; top:20mm; border:0.35mm solid #000; background:#fff;
+  padding:2mm 2.4mm; font-weight:800; font-size:3mm; line-height:1.25
+}
+figcaption.title {display: flex; justify-content: space-between;}
+.dropzone {
+  width: 100%;
+  height:41.3mm;
+  border: 1px dashed #999;
+  border-radius: 5px;
+  background: #f5f5f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 12px;
+  color: #666;
+  cursor: pointer;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.dropzone.dragover {
+  border-style: solid;
+  border-color: #007aff;
+  background-color: #e8f2ff;
+}
+.dropzone.has-image .dz-text {opacity: 0;}
+.btn-zoom {
+  padding: 2px 8px;
+  font-size: 12px;
+  border-radius: 3px;
+  border: 1px solid #999;
+  background: #fff;
+  cursor: pointer;
+}
+/* 이미지 확대 모달 */
+.img-zoom-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.7);
+  z-index: 9999;
+}
+.img-zoom-modal.open {display: flex;}
+.img-zoom-inner img,
+.img-zoom-inner video {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.5);
+  background: #000;
+}
+
+/* 원인 */
+.box.cause {display: flex; flex-direction: column; gap: 3mm;}
+.thumbs{display:grid; grid-template-columns:repeat(5,1fr); gap:1.2mm; margin-bottom: 2px; margin-top: 1px;}
+.thumbs img{width:100%; height:22mm; object-fit:cover;}
+.dropzone-box {display: flex; flex-direction: column; gap: 1mm;}
+.thumbs.thumbs-video .clip{width: 100%; height: 22mm;}
+
+.dropzone.has-image::after,
+.dropzone.has-video::after {
+  content: attr(data-ext);
+  position: absolute;
+  right: 6px;
+  bottom: 4px;
+  font-size: 16px;
+  color: #fff;
+  text-shadow: 0 0 4px rgba(0,0,0,.8);
+}
+
+/* 비디오 확대 모달 */
+.media-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.7);
+  z-index: 9999;
+}
+.media-modal.open {
+  display: flex;
+}
+.media-modal-dialog {
+  max-width: 90vw;
+  max-height: 90vh;
+  background: #111;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.6);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.media-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: #1f2933;
+  color: #f9fafb;
+  font-size: 13px;
+}
+.media-modal-title {
+  font-weight: 600;
+}
+.media-modal-close {
+  border: none;
+  background: transparent;
+  color: #e5e7eb;
+  cursor: pointer;
+  font-size: 14px;
+}
+.media-modal-body {
+  padding: 8px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.media-modal-body img,
+.media-modal-body video {
+  max-width: 88vw;
+  max-height: 80vh;
+  border-radius: 6px;
+  background: #000;
+}
+
+/* 우측: 대책 및 제안 */
+.box.actions { display: flex; flex-direction: column; gap: 10px; }
+.actions .blk {display: flex; flex-direction: column; gap: 3px;}
+.actions .s-lab {font-weight:700; font-size:var(--txt);}
+
+/* 개선 전/후 */
+.improve .pair {display:grid; grid-template-columns:1fr 1fr; gap:3mm}
+.improve .pair .dropzone { height: 38mm; }
+
+/* 서명 표 */
+.sign table{width:100%; border-collapse:collapse; table-layout:fixed; }
+.sign td{border:0.35mm solid var(--line); padding:2mm 2.5mm; word-break:keep-all; line-height: 1;}
+.sign .th{background:#f5f5f5; font-weight:700; width:20mm; line-height: 1;}
+
+/* 인쇄 */
+@page{ size: A4 landscape; margin:0 }
+
+@media print {
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  .sheet {
+    box-shadow: none !important;
+    outline: none !important;
+    transform: none !important;          /* 🔥 줌 무력화 */
+    width: var(--a4-w) !important;       /* 🔥 진짜 A4 mm 규격 */
+    height: var(--a4-h) !important;
+    margin: 0 auto !important;           /* 🔥 가로 중앙 정렬 */
+  }
+
+  /* 화면용 라벨 제거 */
+  .page-container::before,
+  .page-container::after {
+    display: none !important;
+  }
+
+  /* 화면 버튼 숨김 */
+  .zoom-controls,
+  .back-fab, .back-fab2 {
+    display: none !important;
+  }
+
+  /* 바디 flex 제거 — 중앙정렬 방해 요소 제거 */
+  body {
+    display: block !important;
+  }
+}

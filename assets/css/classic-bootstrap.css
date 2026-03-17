@@ -1,0 +1,528 @@
+/* =========================================
+   Classic Bootstrap - Step 1
+   Reboot + Root Variables + Basic Elements
+   스타일 컨셉: C# WinForms / Visual Studio 기본 UI 풍
+========================================= */
+
+/* 1. 루트 변수 (Bootstrap 변수 + C# 스타일 컬러 매핑) */
+:root {
+  /* 컬러 팔레트 */
+  --bs-primary: #007ACC;
+  --bs-primary-dark: #005a9e;
+  --bs-secondary: #6c757d;
+  --bs-success: #198754;
+  --bs-danger: #dc3545;
+  --bs-warning: #ffc107;
+  --bs-info: #0dcaf0;
+  --bs-light: #f8f9fa;
+  --bs-dark: #212529;
+
+  /* C# 스타일 고전 색상 */
+  --cs-bg: #F5F5F5;
+  --cs-panel: #ffffff;
+  --cs-border: #9E9E9E;
+  --cs-border-light: #C8C8C8;
+  --cs-text: #222;
+  --cs-text-muted: #555;
+
+  /* 폰트 */
+  --bs-font-sans-serif: "Segoe UI", Arial, sans-serif;
+  --bs-body-font-size: 14px;
+  --bs-body-line-height: 1.45;
+}
+
+/* 링크 스타일 */
+a {
+  color: var(--bs-primary-dark);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+
+/* 기본 텍스트 요소 */
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* 코드블록 */
+code, pre {
+  font-family: Consolas, "Courier New", monospace;
+}
+
+/* 수평선 */
+hr {
+  border: 0;
+  border-top: 1px solid var(--cs-border-light);
+  margin: 1rem 0;
+}
+
+/* =========================================
+   Classic Bootstrap - Step 3B
+   Utilities: Text / Colors / Background /
+   Position / Overflow / Border / Radius /
+   Shadow / Visibility / Sizing / Z-index
+========================================= */
+
+/* 0) 팔레트 매핑 (필요시 확장 가능) */
+:root{
+  --bs-blue:#0d6efd;      /* 참조용 */
+  --bs-indigo:#6610f2;
+  --bs-purple:#6f42c1;
+  --bs-pink:#d63384;
+  --bs-red:#dc3545;
+  --bs-orange:#fd7e14;
+  --bs-yellow:#ffc107;
+  --bs-green:#198754;
+  --bs-teal:#20c997;
+  --bs-cyan:#0dcaf0;
+  --bs-white:#fff;
+  --bs-gray:#6c757d;
+  --bs-gray-dark:#343a40;
+}
+
+/* 1) Text alignment, transform, wrap */
+.text-start{ text-align:left!important; }
+.text-end{ text-align:right!important; }
+.text-center{ text-align:center!important; }
+
+.text-lowercase{ text-transform:lowercase!important; }
+.text-uppercase{ text-transform:uppercase!important; }
+.text-capitalize{ text-transform:capitalize!important; }
+
+.text-wrap{ white-space:normal!important; }
+.text-nowrap{ white-space:nowrap!important; }
+.text-break{ word-wrap:break-word!important; word-break:break-word!important; }
+
+.fw-light{ font-weight:300!important; }
+.fw-normal{ font-weight:400!important; }
+.fw-semibold{ font-weight:600!important; }
+.fw-bold{ font-weight:700!important; }
+.fst-italic{ font-style:italic!important; }
+.fst-normal{ font-style:normal!important; }
+
+.lh-1{ line-height:1!important; }
+.lh-sm{ line-height:1.25!important; }
+.lh-base{ line-height:1.45!important; } /* C# 톤 */
+.lh-lg{ line-height:1.8!important; }
+
+.fs-7{ font-size:12px!important; }
+.fs-6{ font-size:.875rem!important; }
+.fs-5{ font-size:1rem!important; }
+.fs-4{ font-size:1.25rem!important; }
+.fs-3{ font-size:1.5rem!important; }
+.fs-2{ font-size:2rem!important; }
+.fs-1{ font-size:2.5rem!important; }
+
+/* 2) Text colors (부트스트랩 네이밍 유지, C#톤에 맞춘 대비) */
+.text-primary{ color:var(--bs-primary-dark)!important; }
+.text-secondary{ color:var(--bs-gray)!important; }
+.text-success{ color:var(--bs-green)!important; }
+.text-danger{ color:var(--bs-red)!important; }
+.text-warning{ color:var(--bs-yellow)!important; } 
+.text-info{ color:var(--bs-cyan)!important; }
+.text-light{ color:#adb5bd!important; }
+.text-dark{ color:#212529!important; }
+.text-body{ color:var(--cs-text)!important; }
+.text-muted{ color:var(--cs-text-muted)!important; }
+.text-white{ color:#fff!important; }
+
+/* 3) Background colors (고전 스타일: 그라데이션 지양, 평면톤) */
+.bg-primary{ background-color:var(--bs-primary)!important; color:#fff!important; }
+.bg-secondary{ background-color:var(--bs-gray)!important; color:#fff!important; }
+.bg-success{ background-color:var(--bs-green)!important; color:#fff!important; }
+.bg-danger{ background-color:var(--bs-red)!important; color:#fff!important; }
+.bg-warning{ background-color:var(--bs-yellow)!important; color:#212529!important; }
+.bg-info{ background-color:var(--bs-cyan)!important; color:#212529!important; }
+.bg-light{ background-color:#f8f9fa!important; color:#212529!important; }
+.bg-dark{ background-color:#212529!important; color:#fff!important; }
+.bg-white{ background-color:#fff!important; }
+
+/* 4) Positioning */
+.position-static{ position:static!important; }
+.position-relative{ position:relative!important; }
+.position-absolute{ position:absolute!important; }
+.position-fixed{ position:fixed!important; }
+.position-sticky{ position:sticky!important; }
+
+.top-0{ top:0!important; } .top-50{ top:50%!important; } .top-100{ top:100%!important; }
+.start-0{ left:0!important; } .start-50{ left:50%!important; } .start-100{ left:100%!important; }
+.bottom-0{ bottom:0!important; } .bottom-50{ bottom:50%!important; } .bottom-100{ bottom:100%!important; }
+.end-0{ right:0!important; } .end-50{ right:50%!important; } .end-100{ right:100%!important; }
+
+.translate-middle{ transform:translate(-50%,-50%)!important; }
+.translate-middle-x{ transform:translateX(-50%)!important; }
+.translate-middle-y{ transform:translateY(-50%)!important; }
+
+/* 5) Overflow / Object-fit */
+.overflow-auto{ overflow:auto!important; }
+.overflow-hidden{ overflow:hidden!important; }
+.overflow-visible{ overflow:visible!important; }
+.overflow-scroll{ overflow:scroll!important; }
+
+.overflow-x-auto{ overflow-x:auto!important; }
+.overflow-x-hidden{ overflow-x:hidden!important; }
+.overflow-y-auto{ overflow-y:auto!important; }
+.overflow-y-hidden{ overflow-y:hidden!important; }
+
+.object-contain{ object-fit:contain!important; }
+.object-cover{ object-fit:cover!important; }
+.object-fill{ object-fit:fill!important; }
+.object-none{ object-fit:none!important; }
+.object-scale-down{ object-fit:scale-down!important; }
+
+/* 6) Borders */
+.border{ border:1px solid var(--cs-border)!important; }
+.border-0{ border:0!important; }
+.border-top{ border-top:1px solid var(--cs-border)!important; }
+.border-end{ border-right:1px solid var(--cs-border)!important; }
+.border-bottom{ border-bottom:1px solid var(--cs-border)!important; }
+.border-start{ border-left:1px solid var(--cs-border)!important; }
+
+.border-1{ border-width:1px!important; }
+.border-2{ border-width:2px!important; }
+.border-3{ border-width:3px!important; }
+.border-4{ border-width:4px!important; }
+.border-5{ border-width:5px!important; }
+
+/* Border colors */
+.border-primary{ border-color:var(--bs-primary-dark)!important; }
+.border-secondary{ border-color:var(--bs-gray)!important; }
+.border-success{ border-color:var(--bs-green)!important; }
+.border-danger{ border-color:var(--bs-red)!important; }
+.border-warning{ border-color:#b58900!important; }
+.border-info{ border-color:var(--bs-cyan)!important; }
+.border-light{ border-color:var(--cs-border-light)!important; }
+.border-dark{ border-color:#212529!important; }
+.border-white{ border-color:#fff!important; }
+
+/* 7) Radius (부트스트랩 네이밍) */
+.rounded{ border-radius: .25rem!important; }      /* 4px */
+.rounded-0{ border-radius: 0!important; }
+.rounded-1{ border-radius: .2rem!important; }
+.rounded-2{ border-radius: .25rem!important; }
+.rounded-3{ border-radius: .3rem!important; }
+.rounded-circle{ border-radius: 50%!important; }
+.rounded-pill{ border-radius: 50rem!important; }
+.rounded-top{ border-top-left-radius:.25rem!important; border-top-right-radius:.25rem!important; }
+.rounded-end{ border-top-right-radius:.25rem!important; border-bottom-right-radius:.25rem!important; }
+.rounded-bottom{ border-bottom-right-radius:.25rem!important; border-bottom-left-radius:.25rem!important; }
+.rounded-start{ border-top-left-radius:.25rem!important; border-bottom-left-radius:.25rem!important; }
+
+/* 8) Shadows (고전 UI는 과한 그림자 지양, 은은하게) */
+.shadow-sm{ box-shadow:0 1px 2px rgba(0,0,0,.08)!important; }
+.shadow{   box-shadow:0 2px 6px rgba(0,0,0,.12)!important; }
+.shadow-lg{ box-shadow:0 8px 24px rgba(0,0,0,.18)!important; }
+.shadow-none{ box-shadow:none!important; }
+
+/* 9) Visibility / Opacity / Pointer */
+.visible{ visibility:visible!important; }
+.invisible{ visibility:hidden!important; }
+.opacity-0{ opacity:0!important; }
+.opacity-25{ opacity:.25!important; }
+.opacity-50{ opacity:.5!important; }
+.opacity-75{ opacity:.75!important; }
+.opacity-100{ opacity:1!important; }
+.pe-none{ pointer-events:none!important; }
+.pe-auto{ pointer-events:auto!important; }
+.user-select-none{ user-select:none!important; }
+.user-select-auto{ user-select:auto!important; }
+
+/* 10) Sizing (w-*, h-*) */
+.w-25{ width:25%!important; }
+.w-50{ width:50%!important; }
+.w-75{ width:75%!important; }
+.w-100{ width:100%!important; }
+.w-auto{ width:auto!important; }
+
+.h-25{ height:25%!important; }
+.h-50{ height:50%!important; }
+.h-75{ height:75%!important; }
+.h-100{ height:100%!important; }
+.h-auto{ height:auto!important; }
+
+.mw-100{ max-width:100%!important; }
+.mh-100{ max-height:100%!important; }
+.min-vw-100{ min-width:100vw!important; }
+.min-vh-100{ min-height:100vh!important; }
+.vw-100{ width:100vw!important; }
+.vh-100{ height:100vh!important; }
+
+/* 11) Z-index helpers */
+.z-n1{ z-index:-1!important; }
+.z-0{ z-index:0!important; }
+.z-1{ z-index:1!important; }
+.z-10{ z-index:10!important; }
+.z-50{ z-index:50!important; }
+.z-100{ z-index:100!important; }
+.z-1000{ z-index:1000!important; }
+
+/* 12) Cursor helpers */
+.cursor-pointer{ cursor:pointer!important; }
+.cursor-default{ cursor:default!important; }
+.cursor-move{ cursor:move!important; }
+.cursor-text{ cursor:text!important; }
+
+/* =========================================
+   Classic Bootstrap - Step 4A
+   Components: Buttons
+   (C# 고전 톤: 얇은 테두리 + 옅은 그라데이션)
+========================================= */
+
+/* Base */
+.btn{
+  --btn-border: var(--cs-border);
+  --btn-bg-top: #F2F2F2;
+  --btn-bg-bot: #E5E5E5;
+  --btn-color: #222;
+
+  display:inline-block;
+  font-weight:400;
+  line-height:1.4;
+  text-align:center;
+  text-decoration:none;
+  vertical-align:middle;
+  user-select:none;
+  border:1px solid var(--btn-border);
+  padding:.375rem .75rem;           /* 6px 12px */
+  font-size:.8125rem;                /* 13px */
+  border-radius:.125rem;             /* 2px */
+  background:linear-gradient(var(--btn-bg-top), var(--btn-bg-bot));
+  color:var(--btn-color);
+  cursor:pointer;
+}
+.btn:focus{ outline:0px solid rgba(0,122,204,.25); outline-offset:0px; }
+.btn:hover{
+  --btn-bg-top: #FFFFFF; --btn-bg-bot: #EDEDED;
+}
+.btn:active{
+  background:#E0E0E0;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.12);
+}
+.btn:disabled, .btn.disabled{
+  opacity:.6; cursor:not-allowed; pointer-events:none;
+}
+
+/* Variants */
+.btn-primary{
+  --btn-border:#0b5fa8;
+  --btn-bg-top:#43A3F3;
+  --btn-bg-bot:#1E7FD8;
+  --btn-color:#fff;
+}
+.btn-primary:hover{ --btn-bg-top:#5AB2F6; --btn-bg-bot:#2D8AE0; }
+.btn-primary:active{ background:#1F75C6; }
+
+.btn-secondary{
+  --btn-border: var(--cs-border);
+  --btn-bg-top:#EFEFEF; --btn-bg-bot:#E0E0E0;
+  --btn-color:#333;
+}
+.btn-secondary:hover{ --btn-bg-top:#FFFFFF; --btn-bg-bot:#EDEDED; }
+
+.btn-success{
+  --btn-border:#146c43;
+  --btn-bg-top:#31b57b; --btn-bg-bot:#1d9b61;
+  --btn-color:#fff;
+}
+.btn-success:hover {
+  --btn-bg-top: #3bc084;   /* 위쪽을 좀 더 밝게 */
+  --btn-bg-bot: #21a366;   /* 아래쪽 약간 선명한 녹색 */
+  --btn-border: #198754;   /* 테두리는 진한 녹색 */
+
+  background: linear-gradient(to bottom, var(--btn-bg-top), var(--btn-bg-bot));
+  filter: brightness(1.02);
+  color: #fff;
+}
+.btn-danger{
+  --btn-border:#b02a37;
+  --btn-bg-top:#f06a75; --btn-bg-bot:#dc3545;
+  --btn-color:#fff;
+}
+.btn-danger:hover {
+  --btn-bg-top: #ff7b85;   /* 위쪽 조금 더 밝게 */
+  --btn-bg-bot: #e04b59;   /* 아래쪽 톤 유지 */
+  --btn-border: #a62833;
+
+  background: linear-gradient(to bottom, var(--btn-bg-top), var(--btn-bg-bot));
+  filter: brightness(1.03);
+}
+.btn-warning{
+  --btn-border:#b58900;
+  --btn-bg-top:#ffd866; --btn-bg-bot:#ffc107;
+  --btn-color:#fff;
+}
+.btn-warning:hover {
+  --btn-border:#b58900;
+  --btn-bg-top:#ffd866; --btn-bg-bot:#ffc107;
+  --btn-color:#fff;
+  filter: brightness(1.03);
+}
+.btn-info{
+  --btn-border:#0aa2b0;
+  --btn-bg-top:#67e8ff; --btn-bg-bot:#0dcaf0;
+  --btn-color:#fff;
+}
+.btn-light{
+  --btn-border: var(--cs-border-light);
+  --btn-bg-top:#fff; --btn-bg-bot:#f7f7f7;
+  --btn-color:#212529;
+}
+.btn-dark{
+  --btn-border:#111;
+  --btn-bg-top:#3a3a3a; --btn-bg-bot:#212529;
+  --btn-color:#fff;
+}
+
+/* Outlines (고전: 플랫 배경 + 진한 테두리) */
+.btn-outline-primary{
+  --btn-border:#0b5fa8; --btn-bg-top:#fff; --btn-bg-bot:#fff; --btn-color:#0b5fa8;
+}
+.btn-outline-primary:hover{ --btn-bg-top:#f3f8ff; --btn-bg-bot:#eef5ff; }
+
+.btn-outline-secondary{
+  --btn-border:var(--cs-border); --btn-bg-top:#fff; --btn-bg-bot:#fff; --btn-color:#333;
+}
+.btn-outline-secondary:hover{ --btn-bg-top:#fafafa; --btn-bg-bot:#f2f2f2; }
+
+.btn-outline-success{
+  --btn-border:#198754; --btn-bg-top:#fff; --btn-bg-bot:#fff; --btn-color:#198754;
+}
+.btn-outline-danger{
+  --btn-border:#dc3545; --btn-bg-top:#fff; --btn-bg-bot:#fff; --btn-color:#dc3545;
+}
+.btn-outline-warning{
+  --btn-border:#b58900; --btn-bg-top:#fff; --btn-bg-bot:#fff; --btn-color:#b58900;
+}
+.btn-outline-info{
+  --btn-border:#0dcaf0; --btn-bg-top:#fff; --btn-bg-bot:#fff; --btn-color:#0aa2b0;
+}
+.btn-outline-dark{
+  --btn-border:#212529; --btn-bg-top:#fff; --btn-bg-bot:#fff; --btn-color:#212529;
+}
+
+/* Sizes */
+.btn-lg{ padding:.5rem 1rem; font-size:.9375rem; }   /* 15px */
+.btn-sm{ padding:.25rem .5rem; font-size:.75rem; }   /* 12px */
+
+/* Block (w-100와 동일하지만 편의상 제공) */
+.btn-block{ display:block; width:100%; }
+
+/* Button group */
+.btn-group{
+  position:relative; display:inline-flex; vertical-align:middle;
+}
+.btn-group > .btn{
+  position:relative; flex:0 1 auto; border-radius:0; margin-left:-1px;
+}
+.btn-group > .btn:first-child{ border-top-left-radius:.125rem; border-bottom-left-radius:.125rem; margin-left:0; }
+.btn-group > .btn:last-child{ border-top-right-radius:.125rem; border-bottom-right-radius:.125rem; }
+
+/* Toolbar */
+.btn-toolbar{ display:flex; flex-wrap:wrap; gap:.5rem; }
+
+/* =========================================
+   Classic Bootstrap - Step 4C
+   Components: Badge
+   (C# 고전 톤: 얇은 외곽선 + 플랫 배경)
+========================================= */
+
+.badge{
+  display:inline-block;
+  padding:.25em .5em;    /* 수직 4px, 수평 8px */
+  font-size:.75rem;      /* 12px */
+  font-weight:600;
+  line-height:1;
+  color:#212529;
+  background:#fff;
+  border:1px solid var(--cs-border);
+  border-radius:.25rem;
+  vertical-align:baseline;
+}
+.badge.text-bg-primary{ background:var(--bs-primary); color:#fff; border-color:#0b5fa8; }
+.badge.text-bg-secondary{ background:#e9ecef; color:#212529; border-color:var(--cs-border); }
+.badge.text-bg-success{ background:var(--bs-green); color:#fff; border-color:#146c43; }
+.badge.text-bg-danger{ background:var(--bs-red); color:#fff; border-color:#b02a37; }
+.badge.text-bg-warning{ background:var(--bs-yellow); color:#212529; border-color:#b58900; }
+.badge.text-bg-info{ background:var(--bs-cyan); color:#212529; border-color:#0aa2b0; }
+.badge.text-bg-light{ background:#f8f9fa; color:#212529; border-color:var(--cs-border-light); }
+.badge.text-bg-dark{ background:#212529; color:#fff; border-color:#111; }
+
+/* Pill */
+.rounded-pill.badge{ border-radius:50rem; padding:.25em .75em; }
+
+
+/* =========================================
+   Classic Bootstrap - Step 8A
+   Components: Alerts
+========================================= */
+
+.alert{
+  position:relative;
+  padding:.5rem .75rem;                 /* 8px 12px */
+  margin-bottom:1rem;
+  border:1px solid var(--cs-border);
+  border-left-width:3px;                 /* 고전 느낌 강조 */
+  border-radius:.125rem;
+  background:#fff;
+  color:#212529;
+}
+.alert-heading{ font-weight:700; margin-bottom:.25rem; }
+.alert-link{ font-weight:600; text-decoration:underline; }
+
+.alert-primary{  border-left-color:#0b5fa8; background:#e7f1ff; color:#0b5fa8; }
+.alert-secondary{ border-left-color:#999;    background:#f2f2f2; color:#333; }
+.alert-success{   border-left-color:#146c43; background:#e9f7ef; color:#146c43; }
+.alert-danger{    border-left-color:#b02a37; background:#fdecee; color:#b02a37; }
+.alert-warning{   border-left-color:#b58900; background:#fff9e6; color:#8a6d3b; }
+.alert-info{      border-left-color:#0aa2b0; background:#e7fbff; color:#0aa2b0; }
+.alert-light{     border-left-color:#ccc;    background:#f8f9fa; color:#212529; }
+.alert-dark{      border-left-color:#111;    background:#dcdcdc; color:#212529; }
+
+.alert-dismissible{ padding-right:2.5rem; }
+.alert-dismissible .btn-close{
+  position:absolute; top:.5rem; right:.5rem;
+}
+
+/* =========================================
+   Classic Bootstrap - Step 8G
+   Components: Toast (style only)
+========================================= */
+
+.toast-container{ position:fixed; z-index:1080; padding:0.7rem; }
+.top-0{ top:0; } .start-0{ left:0; } .end-0{ right:0; } .bottom-0{ bottom:0; }
+
+/* 기본 토스트 상태 */
+.toast {
+  display: none;
+  max-width: 360px;
+  font-size: .8125rem;
+  color: #212529;
+  background: #fff;
+  border: 1px solid var(--cs-border);
+  border-radius: .125rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+
+/* 보일 때 */
+.toast.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast-header{
+  display:flex; align-items:center; gap:.5rem;
+  padding:.5rem .75rem; border-bottom:1px solid var(--cs-border);
+  background:linear-gradient(#FAFAFA,#EFEFEF);
+  font-weight:600;
+}
+.toast-body{ margin-top: 5px; padding:.5rem .75rem; }
+
+.text-decoration-none { text-decoration: none !important; }
+.bg-none{ background: none !important; }
